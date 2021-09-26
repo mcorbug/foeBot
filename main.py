@@ -41,13 +41,18 @@ while True:
 
         print("Taverns: %s" % (len(account.taverns)))
 
+        print("Hidden Rewards: %s" % (len(account.hiddenRewards)))
+
         print("Money: %s" % "{:,}".format(account.resources.money))
 
         print("Supplies: %s" % "{:,}".format(account.resources.supplies))
 
         for tavern in account.taverns:
             tavern.sit()
-        #
+
+        for hiddenReward in account.hiddenRewards:
+            hiddenReward.collect()
+
         for player in account.players:
             player.aid()
 

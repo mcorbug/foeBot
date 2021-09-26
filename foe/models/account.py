@@ -6,6 +6,7 @@
 import time
 import pprint
 from collections import OrderedDict
+import json
 
 # 3rd-Party
 from sqlalchemy import Table, Column, ForeignKey, Integer, String, Boolean, Float
@@ -20,6 +21,7 @@ from foe.models.city import City
 from foe.models.player import Player
 from foe.models.tavern import Tavern
 from foe.models.resources import Resources
+from foe.models.hiddenReward import HiddenReward
 
 
 class Account(Model):
@@ -53,6 +55,8 @@ class Account(Model):
 
     resources = relationship(Resources, backref=backref('account', uselist=False), uselist=False)
 
+    hiddenRewards = relationship(HiddenReward, backref=backref('account', uselist=False))
+
     def __init__(self, *args, **kwargs):
         """
         """
@@ -79,6 +83,7 @@ class Account(Model):
         account = Request.service(data, 'StartupService')
         account['taverns'] = Request.method(data, 'getOtherTavernStates')
         account['resources'] = Request.method(data, 'getPlayerResources')['resources']
+        account['hiddenRewards'] = Request.method(data, 'getOverview')['hiddenRewards']
 
         self.update(**account)
 
@@ -109,6 +114,7 @@ class Account(Model):
         taverns = kwargs.pop('taverns')
         city = kwargs.pop('city_map')
         resources = kwargs.pop('resources')
+        hiddenRewards = kwargs.pop('hiddenRewards')
 
         for key in ['player_id', 'user_name']:
             setattr(self, key, user[key])
@@ -149,5 +155,15 @@ class Account(Model):
             self.resources = Resources(account=self)
 
         self.resources.update(**resources)
+
+        # hiddenRewards
+
+        for raw_hiddenReward in hiddenRewards:
+
+            hiddenReward = self.session.query(HiddenReward).filter_by(hiddenRewardId=raw_hiddenReward['hiddenRewardId']).first()
+            if not hiddenReward:
+                hiddenReward = HiddenReward(account=self)
+
+            hiddenReward.update(**raw_hiddenReward)
 
         return super(Account, self).populate(*args, **kwargs)
