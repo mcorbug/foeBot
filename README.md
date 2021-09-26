@@ -3,8 +3,6 @@
 
 A simple bot to do automate the main functions of [Forge of Empires](https://en0.forgeofempires.com/page/)
 
-Uses [FoE Decryption](https://github.com/m3talstorm/foe-decryption) for request signature generation.
-
 *Purely educational and to fuel curiosity*
 
 
@@ -30,11 +28,10 @@ Uses [FoE Decryption](https://github.com/m3talstorm/foe-decryption) for request 
 
 ## Install
 
-- git clone https://github.com/m3talstorm/foe-bot.git
+- git clone https://github.com/WallyCZ/foe-bot.git
 - cd foe-bot
 - pip install -r requirements.txt
-- cd foe
-- Read the comments inside of *config/foe.yml* and update the values
+- Read the comments inside of *foe/config/foe.yml* and update the values
 - python main.py
 - python monitor.py (in another process if you want to see some live updating)
 
