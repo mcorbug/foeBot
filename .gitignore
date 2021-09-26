@@ -90,3 +90,5 @@ ENV/
 
 \.remote-sync\.json
 /foe/config/foe.yml
+
+foe.db

@@ -9,10 +9,10 @@ from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 
 #
-from request import Request
-from models.model import Model
+from foe.request import Request
+from foe.models.model import Model
 
-from config import config
+from foe.config import config
 
 
 
@@ -90,7 +90,7 @@ class Tavern(Model):
 
         self.state = 'isSitting'
 
-        print "%s sat" % (self)
+        print("%s sat" % (self))
 
         return response
 
@@ -109,11 +109,11 @@ class Tavern(Model):
         # Check if anyone is sitting, if there isn't then the 'collectReward' will throw an error
         # TODO: Could let this get high, so we get slightly more silver
         # Max seats * 0.75?
-        if tavern['view']['visitors']:
+        if 'view' in tavern and tavern['view']['visitors']:
             data = cls.request('collectReward', [])
 
-            print "Tavern collected"
+            print("Tavern collected")
         else:
-            print "Tavern empty"
+            print("Tavern empty")
 
         return cls

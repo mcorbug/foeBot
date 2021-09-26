@@ -12,7 +12,7 @@ from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 # Proprietary
-from models.model import Model, Base
+from foe.models.model import Model, Base
 
 
 engine = create_engine('sqlite:///foe.db')

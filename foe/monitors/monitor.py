@@ -11,7 +11,7 @@ from curses import wrapper
 # # 3rd-Party
 
 # # Proprietary
-from db import session
+from foe.db import session
 
 
 

@@ -8,8 +8,8 @@ import time
 # 3rd-Party
 
 #
-from request import Request
-from models.model import Model
+from foe.request import Request
+from foe.models.model import Model
 
 
 class TreasureChest(object):
@@ -32,7 +32,7 @@ class TreasureChest(object):
         """
         """
 
-        for key, value in kwargs.iteritems():
+        for key, value in kwargs.items():
 
             if key == '__class__':
                 key = 'klass'
@@ -63,7 +63,7 @@ class TreasureChest(object):
 
         response = self.request('collectTreasure', None)
 
-        print "%s collected" % (self)
+        print("%s collected" % (self))
 
         return response
 

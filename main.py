@@ -9,14 +9,14 @@ import random
 # 3rd-Party
 
 # Proprietary
-from models.account import Account
-from models.tavern import Tavern
+from foe.models.account import Account
+from foe.models.tavern import Tavern
 
-import deploy
+from foe import deploy
 
-from db import session
+from foe.db import session
 
-from config import config
+from foe.config import config
 
 
 account = Account()
@@ -35,15 +35,15 @@ while True:
 
         #break
 
-        print "Players: %s" % (len(account.players))
+        print("Players: %s" % (len(account.players)))
 
-        print "Buildings: %s" % (len(account.city.buildings))
+        print("Buildings: %s" % (len(account.city.buildings)))
 
-        print "Taverns: %s" % (len(account.taverns))
+        print("Taverns: %s" % (len(account.taverns)))
 
-        print "Money: %s" % "{:,}".format(account.resources.money)
+        print("Money: %s" % "{:,}".format(account.resources.money))
 
-        print "Supplies: %s" % "{:,}".format(account.resources.supplies)
+        print("Supplies: %s" % "{:,}".format(account.resources.supplies))
 
         for tavern in account.taverns:
             tavern.sit()
@@ -57,7 +57,7 @@ while True:
 
         refresh = count + random.randrange(config['settings']['update']['min'], config['settings']['update']['max'])
 
-    print "Checking... (%s)" % (count)
+    print("Checking... (%s)" % (count))
     # NOTE: The full update should adjust for any coins/supplies/resources gained from these pickups
     account.city.pickup()
 

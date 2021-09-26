@@ -12,7 +12,7 @@ import argparse
 # # 3rd-Party
 
 # # Proprietary
-from monitors.building_monitor import BuildingMonitor
+from foe.monitors.building_monitor import BuildingMonitor
 
 
 

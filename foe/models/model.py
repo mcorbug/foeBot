@@ -15,9 +15,9 @@ from sqlalchemy.ext.declarative import declarative_base, declared_attr, has_inhe
 from sqlalchemy.ext.hybrid import hybrid_property
 
 # Proprietary
-from config import config
+from foe.config import config
 
-from request import Request
+from foe.request import Request
 
 Base = declarative_base()
 
@@ -93,7 +93,7 @@ class Model(Base):
         """
         """
 
-        for key, value in kwargs.iteritems():
+        for key, value in kwargs.items():
 
             if key in ['__class__']:
                 continue

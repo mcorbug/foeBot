@@ -14,12 +14,12 @@ from sqlalchemy.orm import relationship, backref
 import pydash
 
 #
-from request import Request
-from models.model import Model
-from models.city import City
-from models.player import Player
-from models.tavern import Tavern
-from models.resources import Resources
+from foe.request import Request
+from foe.models.model import Model
+from foe.models.city import City
+from foe.models.player import Player
+from foe.models.tavern import Tavern
+from foe.models.resources import Resources
 
 
 class Account(Model):
@@ -70,7 +70,7 @@ class Account(Model):
         Does a HTTP request to get the start up blob for the city, then populates the models
         """
 
-        print "%s fetching..." % (self)
+        print("%s fetching..." % (self))
 
         timer = time.time()
 
@@ -82,7 +82,7 @@ class Account(Model):
 
         self.update(**account)
 
-        print "%s fetched in %.2fs" % (self, time.time() - timer)
+        print("%s fetched in %.2fs" % (self, time.time() - timer))
 
         return self
 
@@ -113,7 +113,7 @@ class Account(Model):
         for key in ['player_id', 'user_name']:
             setattr(self, key, user[key])
 
-        for key in kwargs.keys():
+        for key in list(kwargs.keys()):
             kwargs.pop(key)
 
         # City

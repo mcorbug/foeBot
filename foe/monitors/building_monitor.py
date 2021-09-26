@@ -14,14 +14,14 @@ import pydash
 import moment
 
 # # Proprietary
-from models.building import Building
-from models.player import Player
-from models.resources import Resources
+from foe.models.building import Building
+from foe.models.player import Player
+from foe.models.resources import Resources
 
-from db import session
+from foe.db import session
 
 
-from monitor import Monitor
+from .monitor import Monitor
 
 
 

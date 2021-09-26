@@ -12,10 +12,10 @@ from sqlalchemy import Table, Column, ForeignKey, Integer, String, Boolean, Floa
 from sqlalchemy.orm import relationship, backref
 
 #
-from request import Request
-from models.model import Model
+from foe.request import Request
+from foe.models.model import Model
 
-from config import config
+from foe.config import config
 
 
 
@@ -132,7 +132,7 @@ class Player(Model):
 
         self.collection_time = 0
 
-        print "%s aided" % (self)
+        print("%s aided" % (self))
 
         return data
 

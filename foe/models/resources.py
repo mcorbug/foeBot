@@ -15,8 +15,8 @@ from sqlalchemy.orm import relationship, backref
 import pydash
 
 #
-from request import Request
-from models.model import Model
+from foe.request import Request
+from foe.models.model import Model
 
 class Resources(Model):
     """

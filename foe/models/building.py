@@ -11,8 +11,8 @@ from sqlalchemy import Column, Integer, String, Float, Boolean, ForeignKey
 from sqlalchemy.orm import relationship, backref
 
 #
-from request import Request
-from models.model import Model
+from foe.request import Request
+from foe.models.model import Model
 #from models.building_state import BuildingState
 
 
@@ -116,7 +116,7 @@ class Building(Model):
         # NOTE: '1' means the first slot, which is 5 minutes for supplies or 4 hours for resources
         response = self.request('startProduction', [self.id, 1])
 
-        print "%s started production" % (self)
+        print("%s started production" % (self))
 
         # TODO: Resources should be 4 hours ... but should be corrected by the full update
         self.collection_time = time.time() + (5 * 60)
@@ -134,7 +134,7 @@ class Building(Model):
 
         response = self.request('pickupProduction', [[self.id]])
 
-        print "%s picked up production" % (self)
+        print("%s picked up production" % (self))
 
         self.pickedup()
 
@@ -180,7 +180,7 @@ class Building(Model):
 
         response = self.request('cancelProduction', [[self.id]])
 
-        print "%s cancelled production" % (self)
+        print("%s cancelled production" % (self))
 
         #
         self.collection_time = 0

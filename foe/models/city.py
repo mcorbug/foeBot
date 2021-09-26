@@ -16,11 +16,11 @@ from sqlalchemy.orm import relationship, backref
 import pydash
 
 # Proprietary
-from request import Request
-from models.model import Model
-from models.building import Building
-from models.tavern import Tavern
-from models.player import Player
+from foe.request import Request
+from foe.models.model import Model
+from foe.models.building import Building
+from foe.models.tavern import Tavern
+from foe.models.player import Player
 
 
 class City(Model):
@@ -93,7 +93,7 @@ class City(Model):
         ids = [building.id for building in self.buildings if building.pickupable()]
         # No point in going any futher if there is nothing to pickup
         if not ids:
-            print "No buildings need picking up"
+            print("No buildings need picking up")
             return self
 
         # Pick a random sample (~70%) of the of these buildings
@@ -103,7 +103,7 @@ class City(Model):
         # Pickup all of them at once
         response = self.request('pickupProduction', [sample], klass='CityProductionService')
 
-        print "Picked up %s/%s buildings at once" % (len(sample), len(ids))
+        print("Picked up %s/%s buildings at once" % (len(sample), len(ids)))
         # Get the buildings that weren't all picked up at once
         difference = set(ids).difference(set(sample))
         # Now pick up the rest one-by-one

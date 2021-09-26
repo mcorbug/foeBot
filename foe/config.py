@@ -11,7 +11,7 @@ import anyconfig
 # Proprietary
 
 
-DEFAULT = './config/foe.yml'
+DEFAULT = 'foe/config/foe.yml'
 # Add the ability to get config from a different file
 PATH = os.environ.get('FOE_CONFIG', DEFAULT)
 # Load the default config then override, so that we always have the correct structure

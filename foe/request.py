@@ -10,7 +10,7 @@ import random
 from collections import OrderedDict
 
 # Proprietary
-from config import config
+from foe.config import config
 
 
 
@@ -34,7 +34,7 @@ class Request(object):
 
         data = config['login']['user_key'] + config['game']['secret'] + body
 
-        return hashlib.md5(data).hexdigest()[0:10]
+        return hashlib.md5(data.encode('utf-8')).hexdigest()[0:10]
 
     @classmethod
     def request(cls, payload):

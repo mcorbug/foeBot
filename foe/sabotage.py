@@ -7,7 +7,7 @@ import pprint
 #
 
 #
-from models.player import Player
+from .models.player import Player
 
 
 
