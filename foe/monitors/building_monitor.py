@@ -73,7 +73,7 @@ class BuildingMonitor(Monitor):
                                                                             self.fixed(building.type, 12),
                                                                             self.fixed(building.state, 23),
                                                                             self.fixed(collection, 15),
-                                                                            self.fixed(remaining, 3)),
+                                                                            self.fixed(remaining, 9)),
                                                                             colour)
 
 

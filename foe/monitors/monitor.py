@@ -58,20 +58,32 @@ class Monitor(object):
         curses.init_pair(5, curses.COLOR_RED, curses.COLOR_BLACK)
         curses.init_pair(6, curses.COLOR_WHITE, curses.COLOR_BLACK)
 
-        while True:
-            #
-            session.expire_all()
-            # TODO: Add some standard header to the top? (like interval time etc)
-            #
-            self.render()
-            #
-            self.increment.reset()
-            #
-            self.screen.refresh()
-            #
-            time.sleep(self.interval)
+        self.screen.nodelay(True)
 
-            self.running += self.interval
+        try:
+            while True:
+                #
+                session.expire_all()
+                # TODO: Add some standard header to the top? (like interval time etc)
+                #
+                self.render()
+                #
+                self.increment.reset()
+                #
+                self.screen.refresh()
+                #
+                time.sleep(self.interval)
+
+                c = self.screen.getch() # Get char from input.  If none is available, will return -1.
+                if c == 3:
+                    raise KeyboardInterrupt
+                else:
+                    curses.flushinp() # Clear out buffer.  We only care about Ctrl+C.
+
+                self.running += self.interval
+        except KeyboardInterrupt:
+            self.screen.addstr(3, 0, "Ctrl+C detected, Program Stopping")
+            self.screen.refresh()
 
         return
 
