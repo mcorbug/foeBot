@@ -99,6 +99,20 @@ class Building(Model):
 
         return super(Building, self).populate(*args, **kwargs)
 
+    def update_state_from_response(self, data):
+        """
+   
+        """
+
+        updated = Request.service(data, 'CityProductionService')['updatedEntities']
+
+        for item in updated:
+            if item['id'] == self.id and item['cityentity_id'] == self.cityentity_id :
+                self.update(**item)
+                return self
+
+        return self
+
     def produce(self):
         """
         Starts production in the building
@@ -118,9 +132,7 @@ class Building(Model):
 
         print("%s started production" % (self))
 
-        # TODO: Resources should be 4 hours ... but should be corrected by the full update
-        self.collection_time = time.time() + (5 * 60)
-        self.state = 'ProducingState'
+        self.update_state_from_response(response)
 
         return response
 
@@ -136,7 +148,7 @@ class Building(Model):
 
         print("%s picked up production" % (self))
 
-        self.pickedup()
+        self.update_state_from_response(response)
 
         return response
 
@@ -156,19 +168,6 @@ class Building(Model):
 
         return True
 
-    def pickedup(self):
-        """
-        Marks the building as being picked up, resetting state and timers
-        """
-
-        if self.type == 'residential':
-            self.collection_time = time.time() + (60 * 60)
-            self.state = 'ProducingState'
-        else:
-            self.collection_time = 0
-            self.state = 'IdleState'
-
-        return self
 
     def cancel(self):
         """

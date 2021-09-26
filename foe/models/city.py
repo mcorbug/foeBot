@@ -117,7 +117,7 @@ class City(Model):
                 building.pickup()
             elif building.id in sample:
                 # This building was picked up as part of the multi/batch pickup so just update the state
-                building.pickedup()
+                building.update_state_from_response(response)
 
         return self
 
