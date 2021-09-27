@@ -34,18 +34,24 @@ class BuildingMonitor(Monitor):
         """
 
         # Get all the ative attacks
-        buildings = session.query(Building).order_by(Building.collection_time).all()
-        friends = session.query(Player).filter(Player.is_friend == 1).all()
-        neighbours = session.query(Player).filter(Player.is_neighbor == 1).all()
-        guild = session.query(Player).filter(Player.is_guild_member == 1).all()
+        try:
+            buildings = session.query(Building).order_by(Building.collection_time).all()
+            friends = session.query(Player).filter(Player.is_friend == 1).all()
+            neighbours = session.query(Player).filter(Player.is_neighbor == 1).all()
+            guild = session.query(Player).filter(Player.is_guild_member == 1).all()
 
-        resources = session.query(Resources).first()
+            resources = session.query(Resources).first()
+
+            if not resources:
+                return
+        except:
+            return
 
         now = moment.unix(time.time(), utc=True).format('HH:mm:ss')
 
-        self.screen.addstr(self.line, 0, "Time: %s | Running: %ss | Update in: %ss" % (now, int(self.running), 100))
+        self.screen.addstr(self.line, 0, "Time: %s | Running: %ss | Update in: %ss" % (now, int(self.running), int(self.interval)))
         self.screen.addstr(self.line, 0, self.SEPERATOR)
-        self.screen.addstr(self.line, 0, "Coins: %s | Supplies: %s" % ("{:,}".format(resources.money), "{:,}".format(resources.supplies)))
+        self.screen.addstr(self.line, 0, "Coins: %s | Supplies: %s | Strategy points: %s | Medals: %s" % ("{:,}".format(resources.money), "{:,}".format(resources.supplies), "{:,}".format(resources.strategy_points), "{:,}".format(resources.medals)))
         self.screen.addstr(self.line, 0, "Friends: %s | Neighbours: %s | Guild: %s" % (len(friends), len(neighbours), len(guild)))
         self.screen.addstr(self.line, 0, "Buildings: %s" % (len(buildings)))
         self.screen.addstr(self.line, 0, self.SEPERATOR)

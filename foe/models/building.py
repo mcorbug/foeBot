@@ -13,6 +13,7 @@ from sqlalchemy.orm import relationship, backref
 #
 from foe.request import Request
 from foe.models.model import Model
+from foe.models.resources import Resources
 #from models.building_state import BuildingState
 
 
@@ -106,10 +107,17 @@ class Building(Model):
 
         updated = Request.service(data, 'CityProductionService')['updatedEntities']
 
-        for item in updated:
-            if item['id'] == self.id and item['cityentity_id'] == self.cityentity_id :
-                self.update(**item)
-                return self
+        if updated:
+            for item in updated:
+                if item['id'] == self.id and item['cityentity_id'] == self.cityentity_id :
+                    self.update(**item)
+                    break
+
+        resources_response = Request.service(data, 'ResourceService')['resources']
+
+        resources = self.session.query(Resources).first()
+        if resources_response and resources:
+            resources.update(**resources_response)
 
         return self
 

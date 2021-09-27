@@ -92,7 +92,7 @@ class HiddenReward(Model):
 
         # hiddenRewards = Request.service(data, 'HiddenRewardService')
 
-        print("Collected hidden reward data: %s" % data)
+        # print("Collected hidden reward data: %s" % data)
 
         # Clean up. Otherwise entry will be picked up on the next reload resulting in server error
         self.session.query(HiddenReward).filter_by(hiddenRewardId=self.hiddenRewardId).delete()

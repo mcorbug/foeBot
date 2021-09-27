@@ -89,6 +89,8 @@ class Resources(Model):
 
     raw_granite = Column(Integer, default=0)
 
+    strategy_points = Column(Integer, default=0)
+
     # Back-refs
     # ---------------------------------------------------------
 
