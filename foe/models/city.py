@@ -96,8 +96,10 @@ class City(Model):
             print("No buildings need picking up")
             return self
 
-        # Pick a random sample (~70%) of the of these buildings
-        count = int(len(ids) * 0.7)
+        count = len(ids)
+        # Pick a random sample (~80%) of the of these buildings
+        if count > 2:
+            count = int(count * 0.8)
         # Sample the builds at random
         sample = random.sample(ids, count)
         # Pickup all of them at once
