@@ -98,7 +98,11 @@ class Model(Base):
             if key in ['__class__']:
                 continue
 
-            setattr(self, key, value)
+            try:
+                setattr(self, key, value)
+            except:
+                print("Error setting key=%s, value=%s" % (key, value))
+                raise
 
         return self
 

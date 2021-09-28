@@ -14,7 +14,7 @@ from sqlalchemy.orm import relationship, backref
 from foe.request import Request
 from foe.models.model import Model
 from foe.models.resources import Resources
-#from models.building_state import BuildingState
+from foe.models.unit_slot import UnitSlot
 
 
 
@@ -55,6 +55,8 @@ class Building(Model):
     # Containers
     # ---------------------------------------------------------
 
+    unitSlots = relationship(UnitSlot, backref=backref('building', uselist=False))
+
     def __init__(self, *args, **kwargs):
         """
         """
@@ -74,7 +76,22 @@ class Building(Model):
         for key in ['player_id', 'clan', 'clan_id', 'topAchievements', '__class__']:
             kwargs.pop(key, None)
 
+        # set ID in advance so relationships will be working correctly
+        for key in ['id']:
+            setattr(self, key, kwargs.pop(key))
+
         state = kwargs.pop('state')
+
+        if 'unitSlots' in kwargs:
+            unitSlots = kwargs.pop('unitSlots')
+            for raw_unit_slot in unitSlots:
+
+                unitNr = 0 if 'nr' not in raw_unit_slot else raw_unit_slot['nr']
+                unitSlot = self.session.query(UnitSlot).filter_by(entity_id=raw_unit_slot['entity_id'], nr=unitNr).first()
+                if not unitSlot:
+                    unitSlot = UnitSlot(building=self)
+
+                unitSlot.update(**raw_unit_slot)
 
         if state:
 
@@ -95,7 +112,7 @@ class Building(Model):
             elif self.state == 'UnconnectedState':
                 self.collection_time = 0
             else:
-                # State we don't now about... so print it
+                # State we don't know about... so print it
                 pprint.pprint(state)
 
         return super(Building, self).populate(*args, **kwargs)
@@ -113,11 +130,15 @@ class Building(Model):
                     self.update(**item)
                     break
 
-        resources_response = Request.service(data, 'ResourceService')['resources']
+        resources_response = Request.service(data, 'ResourceService')
 
-        resources = self.session.query(Resources).first()
-        if resources_response and resources:
-            resources.update(**resources_response)
+        if resources_response and 'resources' in resources_response:
+
+            resources_response = resources_response['resources']
+
+            resources = self.session.query(Resources).first()
+            if resources_response and resources:
+                resources.update(**resources_response)
 
         return self
 
@@ -126,7 +147,7 @@ class Building(Model):
         Starts production in the building
         """
 
-        if self.type == 'residential':
+        if self.type in ['residential']:
             return None
 
         if self.collection_time:
@@ -136,7 +157,22 @@ class Building(Model):
             return None
 
         # NOTE: '1' means the first slot, which is 5 minutes for supplies or 4 hours for resources
-        response = self.request('startProduction', [self.id, 1])
+        slot = 1
+
+        if self.type == 'military':
+            # Try to find free military slot
+            slot = -1
+            if self.unitSlots:
+
+                free_slot = list(filter(lambda slot: slot.unlocked and slot.unit_id == -1 and not slot.is_training, self.unitSlots))
+
+                if len(free_slot) > 0:
+                    slot = free_slot[0].nr
+
+            if slot == -1:
+                return None
+
+        response = self.request('startProduction', [self.id, slot])
 
         print("%s started production" % (self))
 

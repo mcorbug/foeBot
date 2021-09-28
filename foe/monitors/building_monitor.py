@@ -35,7 +35,7 @@ class BuildingMonitor(Monitor):
 
         # Get all the ative attacks
         try:
-            buildings = session.query(Building).order_by(Building.collection_time).all()
+            buildings = session.query(Building).order_by(Building.collection_time == 0, Building.collection_time).all()
             friends = session.query(Player).filter(Player.is_friend == 1).all()
             neighbours = session.query(Player).filter(Player.is_neighbor == 1).all()
             guild = session.query(Player).filter(Player.is_guild_member == 1).all()
@@ -61,6 +61,7 @@ class BuildingMonitor(Monitor):
             'residential': curses.color_pair(1),
             'production': curses.color_pair(2),
             'goods': curses.color_pair(3),
+            'military': curses.color_pair(4),
         }
         #
         self.screen.addstr(self.line, 0, "ID  | Building                       | Type         | State                   | Collection Time | Remaining |")
@@ -68,11 +69,14 @@ class BuildingMonitor(Monitor):
         #
         for building in buildings[:35]:
 
-            colour = MAPPER.get(building.type, '')
+            colour = MAPPER.get(building.type, 0)
 
-            remaining = "%0.0f" % round(building.collection_time - time.time())
-
-            collection = moment.unix(building.collection_time, utc=True).format('HH:mm:ss')
+            if building.state in ['IdleState', 'ConstructionState']:
+                remaining = "-"
+                collection = "-"
+            else:
+                remaining = "%0.0f" % round(building.collection_time - time.time())
+                collection = moment.unix(building.collection_time, utc=True).format('HH:mm:ss')
 
             self.screen.addstr(self.line, 0, "%s | %s | %s | %s | %s | %s" % (self.fixed(building.id, 3),
                                                                             self.fixed(building.cityentity_id, 30),
