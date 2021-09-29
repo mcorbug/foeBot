@@ -60,12 +60,6 @@ class Model(Base):
 
         return "%s %s" % (self.__class__.__name__.title(), self.id)
 
-    def __init__(self, *args, **kwargs):
-        """
-        """
-
-        return super(Model, self).__init__(*args, **kwargs)
-
     # Properties
     # ---------------------------------------------------------
 

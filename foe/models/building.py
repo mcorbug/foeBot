@@ -57,12 +57,6 @@ class Building(Model):
 
     unitSlots = relationship(UnitSlot, backref=backref('building', uselist=False))
 
-    def __init__(self, *args, **kwargs):
-        """
-        """
-
-        return super(Building, self).__init__(*args, **kwargs)
-
     def __repr__(self):
         """
         """

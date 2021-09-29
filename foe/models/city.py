@@ -48,12 +48,6 @@ class City(Model):
 
     buildings = relationship(Building, backref=backref('city', uselist=False))
 
-    def __init__(self, *args, **kwargs):
-        """
-        """
-
-        return super(City, self).__init__(*args, **kwargs)
-
     def __repr__(self):
         """
         """

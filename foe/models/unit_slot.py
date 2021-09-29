@@ -3,14 +3,11 @@
 """
 
 # Native
-import time
 
 # 3rd-Party
-from sqlalchemy import Column, Integer, String, Float, Boolean, ForeignKey
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy import Column, Integer, Boolean, ForeignKey
 
 #
-from foe.request import Request
 from foe.models.model import Model
 
 class UnitSlot(Model):
@@ -41,12 +38,6 @@ class UnitSlot(Model):
 
     # Containers
     # ---------------------------------------------------------
-
-    def __init__(self, *args, **kwargs):
-        """
-        """
-
-        return super(UnitSlot, self).__init__(*args, **kwargs)
 
     def __repr__(self):
         """

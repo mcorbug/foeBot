@@ -91,17 +91,12 @@ class Resources(Model):
 
     strategy_points = Column(Integer, default=0)
 
+    population = Column(Integer, default=0)
+
     # Back-refs
     # ---------------------------------------------------------
 
     account_id = Column(Integer, ForeignKey('account.player_id'), primary_key=True)
-
-    def __init__(self, *args, **kwargs):
-        """
-        """
-
-        return super(Resources, self).__init__(*args, **kwargs)
-
 
     def __repr__(self):
         """

@@ -57,12 +57,6 @@ class Account(Model):
 
     hiddenRewards = relationship(HiddenReward, backref=backref('account', uselist=False))
 
-    def __init__(self, *args, **kwargs):
-        """
-        """
-
-        return super(Account, self).__init__(*args, **kwargs)
-
     def __repr__(self):
         """
         """

@@ -46,12 +46,6 @@ class HiddenReward(Model):
     # Containers
     # ---------------------------------------------------------
 
-    def __init__(self, *args, **kwargs):
-        """
-        """
-
-        return super(HiddenReward, self).__init__(*args, **kwargs)
-
     def __repr__(self):
         """
         """

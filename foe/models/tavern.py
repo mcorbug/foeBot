@@ -45,17 +45,17 @@ class Tavern(Model):
     # Containers
     # ---------------------------------------------------------
 
-    def __init__(self, *args, **kwargs):
-        """
-        """
-
-        return super(Tavern, self).__init__(*args, **kwargs)
-
     def __repr__(self):
         """
         """
 
         return "Tavern %s (%s)" % (self.ownerId, self.state)
+
+    def __getitem__(self, key):
+        """
+        """
+
+        return getattr(self, key)
 
     def populate(self, *args, **kwargs):
         """
