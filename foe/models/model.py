@@ -3,13 +3,9 @@
 """
 
 # Native
-import sys
 import uuid
-import time
-from collections import OrderedDict
 
 # 3rd-Party
-from sqlalchemy import Column, Integer, String, Boolean, Float
 from sqlalchemy import inspect
 from sqlalchemy.ext.declarative import declarative_base, declared_attr, has_inherited_table
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -62,7 +58,7 @@ class Model(Base):
 
     # Properties
     # ---------------------------------------------------------
-
+    @classmethod
     @declared_attr
     def __tablename__(cls):
         """
@@ -115,14 +111,14 @@ class Model(Base):
 
         klass = klass or cls.REQUEST_CLASS
 
-        payload = [OrderedDict([
-            ("requestId", Request.REQUEST_ID),
-            ("__class__", "ServerRequest"),
-            ("requestClass", klass),
-            ("requestData", data),
-            ("requestMethod", method),
-            ("voClassName", "ServerRequest")]
-        )]
+        payload = [{
+            "requestId": Request.REQUEST_ID,
+            "__class__": "ServerRequest",
+            "requestClass": klass,
+            "requestData": data,
+            "requestMethod": method,
+            "voClassName": "ServerRequest"
+        }]
 
         response = Request.request(payload)
 
