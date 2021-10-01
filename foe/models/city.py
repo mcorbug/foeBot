@@ -102,11 +102,11 @@ class City(Model):
         print("Picked up %s/%s buildings at once" % (len(sample), len(ids)))
         # Get the buildings that weren't all picked up at once
         difference = set(ids).difference(set(sample))
-        # Now pick up the rest one-by-one
-        for building in self.buildings:
+        # Now pick up the rest one-by-one in random order
+        for building in random.sample(self.buildings, len(self.buildings)):
 
             if building.id in difference:
-                # Add a built of time so it looks like a human ;)
+                # Add a bit of time so it looks like a human ;)
                 sleep = random.uniform(0.5, 1)
                 time.sleep(sleep)
 
@@ -126,7 +126,7 @@ class City(Model):
         sleep = random.uniform(0.5, 2)
         time.sleep(sleep)
 
-        for building in self.buildings:
+        for building in random.sample(self.buildings, len(self.buildings)):
 
             if building.produce() is not None:
                 # Add a built of time so it looks like a human ;)
