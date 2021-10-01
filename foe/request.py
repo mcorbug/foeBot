@@ -7,6 +7,7 @@ import hashlib
 import json
 import requests
 import random
+import string
 from collections import OrderedDict
 
 # Proprietary
@@ -45,6 +46,9 @@ class Request(object):
 
         signature = cls.signature(body)
 
+        if 'instanceId' not in config:
+            config['instanceId'] = ''.join((random.choice(string.ascii_lowercase) for x in range(10)))
+
         version = config['game']['version']
         # TODO: Might want to change these values to match your browser
         headers = {
@@ -60,7 +64,7 @@ class Request(object):
             "Host": "%s.forgeofempires.com" % (config['game']['server']),
             "Accept-Encoding": "gzip, deflate",
             "Accept-Language": "en-US,en;q=0.8,ja;q=0.6",
-            "Cookie": "metricsUvId=22af0da5-abfe-4178-ba80-09c0fb87d145; sid=%s; ig_conv_last_site=https://%s.forgeofempires.com/game/index" % (config['login']['sid'], config['game']['server']),
+            "Cookie": "instanceId=%s; metricsUvId=22af0da5-abfe-4178-ba80-09c0fb87d145; sid=%s; ig_conv_last_site=https://%s.forgeofempires.com/game/index" % (config['instanceId'], config['login']['sid'], config['game']['server']),
         }
 
         url = 'https://%s.forgeofempires.com/game/json?h=%s' % (config['game']['server'], config['login']['user_key'])
