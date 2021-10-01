@@ -4,7 +4,7 @@
 
 # Native
 import time
-import json
+import random
 import pprint
 
 # 3rd-Party
@@ -127,6 +127,8 @@ class Player(Model):
 
         if not self.aidable:
             return
+
+        time.sleep(random.uniform(0.5, 2.3))
 
         data = self.request('polivateRandomBuilding', self.player_id)
 
