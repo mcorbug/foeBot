@@ -106,15 +106,20 @@ class Request(object):
         return None
 
     @staticmethod
-    def method(data, method):
+    def method(data, method, service=None):
         """
         Extracts a methods's data out of a response data
         """
+        if service:
+            for i, value in enumerate(data):
 
-        for i, value in enumerate(data):
+                if value['requestMethod'] == method and value['requestClass'] == service:
+                    return value['responseData']
+        else:
+            for i, value in enumerate(data):
 
-            if value['requestMethod'] == method:
-                return value['responseData']
+                if value['requestMethod'] == method:
+                    return value['responseData']
 
         return None
 
