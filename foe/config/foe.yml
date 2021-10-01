@@ -6,9 +6,9 @@ game:
     # Update this to match the server you are playing on
     server: en1
     # Inside the 'Client-Identification' header
-    version: '1.213'
+    version: '1.214'
     # This can be gotten by following this tutorial: https://github.com/m3talstorm/foe-decryption
-    secret: HemK1n4DiOvxVwPf5ef7DiH7/3z0QiYw5X/9u5IqQrLBwS/L7aHLdAjDNVpO0M7tXfSi1XfcWm4psQva4ldKBg==
+    secret: kY4ny9bVovzqSJ8cQF/v3hm1kqdbXcj5h0sKRI57YOChHCaispJ3XrbBdpc05cIGXSC9lpH4jy1ybI95hlo82w==
     # The timestamp inside of the 'Referer' header: https://foeen.innogamescdn.com/swf/Preloader.swf?<here>/[[DYNAMIC]]/1
     # Not used anymore
     timestamp: 1511779469
