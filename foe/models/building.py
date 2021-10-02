@@ -140,14 +140,16 @@ class Building(Model):
         """
         Starts production in the building
         """
+        if self.type in ['residential'] and self.state not in ['IdleState']:
+            return None
 
-        if self.type in ['residential']:
+        if self.type in ['main_building']:
             return None
 
         if self.collection_time:
             return None
 
-        if self.state in ['ProducingState', 'ProductionFinishedState', 'ConstructionState', 'UnconnectedState']:
+        if self.state in ['ProducingState', 'ProductionFinishedState', 'UnconnectedState']:
             return None
 
         # NOTE: '1' means the first slot, which is 5 minutes for supplies or 4 hours for resources
