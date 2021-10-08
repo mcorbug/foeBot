@@ -67,7 +67,7 @@ class City(Model):
 
         for raw_building in buildings:
 
-            if raw_building['type'] in ['production', 'residential', 'goods', 'military', 'main_building']:
+            if raw_building['type'] in ['production', 'residential', 'goods', 'military', 'main_building', 'generic_building']:
 
                 building = self.session.query(Building).get(raw_building['id'])
                 if not building:

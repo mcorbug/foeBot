@@ -143,7 +143,7 @@ class Building(Model):
         if self.type in ['residential'] and self.state not in ['IdleState']:
             return None
 
-        if self.type in ['main_building']:
+        if self.type in ['main_building', 'generic_building']:
             return None
 
         if self.collection_time:

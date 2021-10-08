@@ -64,7 +64,7 @@ class BuildingMonitor(Monitor):
             'military': curses.color_pair(4),
         }
         #
-        self.screen.addstr(self.line, 0, "ID  | Building                       | Type          | State                   | Finish Time    | Remaining |")
+        self.screen.addstr(self.line, 0, "ID  | Building                       | Type             | State                   | Finish Time | Remaining |")
         self.screen.addstr(self.line, 0, self.SEPERATOR)
         #
         for building in buildings[:35]:
@@ -80,9 +80,9 @@ class BuildingMonitor(Monitor):
 
             self.screen.addstr(self.line, 0, "%s | %s | %s | %s | %s | %s" % (self.fixed(building.id, 3),
                                                                             self.fixed(building.cityentity_id, 30),
-                                                                            self.fixed(building.type, 13),
+                                                                            self.fixed(building.type, 16),
                                                                             self.fixed(building.state, 23),
-                                                                            self.fixed(collection, 14),
+                                                                            self.fixed(collection, 11),
                                                                             self.fixed(remaining, 9)),
                                                                             colour)
 
