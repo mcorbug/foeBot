@@ -32,7 +32,13 @@ A simple bot to do automate the main functions of [Forge of Empires](https://en0
 - cd foe-bot
 - pip install -r requirements.txt
 - Read the comments inside of *foe/config/foe.yml* and update the values
-- python main.py
+- python main.py or
+
+- main.py takes --userKEy, --sid, --configFile to start bot dynamically
+- 
+```bash
+  main.py --userKey USER_KEY --sid SID
+```
 - python monitor.py (in another process if you want to see some live updating)
 
 
