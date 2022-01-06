@@ -77,14 +77,16 @@ class BuildingMonitor(Monitor):
             else:
                 remaining = "%0.0f" % round(building.collection_time - time.time())
                 collection = moment.unix(building.collection_time, utc=True).format('HH:mm:ss')
-
-            self.screen.addstr(self.line, 0, "%s | %s | %s | %s | %s | %s" % (self.fixed(building.id, 3),
-                                                                            self.fixed(building.cityentity_id, 30),
-                                                                            self.fixed(building.type, 16),
-                                                                            self.fixed(building.state, 23),
-                                                                            self.fixed(collection, 11),
-                                                                            self.fixed(remaining, 9)),
-                                                                            colour)
+            try:
+                self.screen.addstr(self.line, 0, "%s | %s | %s | %s | %s | %s" % (self.fixed(building.id, 3),
+                                                                                self.fixed(building.cityentity_id, 30),
+                                                                                self.fixed(building.type, 16),
+                                                                                self.fixed(building.state, 23),
+                                                                                self.fixed(collection, 11),
+                                                                                self.fixed(remaining, 9)),
+                                                                                colour)
+            except:
+                pass
 
 
         return

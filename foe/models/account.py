@@ -77,7 +77,7 @@ class Account(Model):
         account = Request.service(data, 'StartupService')
         account['taverns'] = Request.method(data, 'getOtherTavernStates')
         account['resources'] = Request.method(data, 'getPlayerResources')['resources']
-        account['hiddenRewards'] = Request.method(data, 'getOverview')['hiddenRewards']
+        # account['hiddenRewards'] = Request.method(data, 'getOverview')['hiddenRewards']
 
         self.update(**account)
 
@@ -108,7 +108,7 @@ class Account(Model):
         taverns = kwargs.pop('taverns')
         city = kwargs.pop('city_map')
         resources = kwargs.pop('resources')
-        hiddenRewards = kwargs.pop('hiddenRewards')
+        # hiddenRewards = kwargs.pop('hiddenRewards')
 
         for key in ['player_id', 'user_name']:
             setattr(self, key, user[key])
@@ -151,7 +151,7 @@ class Account(Model):
         self.resources.update(**resources)
 
         # hiddenRewards
-
+        """
         for raw_hiddenReward in hiddenRewards:
 
             hiddenReward = self.session.query(HiddenReward).filter_by(hiddenRewardId=raw_hiddenReward['hiddenRewardId']).first()
@@ -159,5 +159,6 @@ class Account(Model):
                 hiddenReward = HiddenReward(account=self)
 
             hiddenReward.update(**raw_hiddenReward)
+        """
 
         return super(Account, self).populate(*args, **kwargs)

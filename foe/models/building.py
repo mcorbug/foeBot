@@ -170,9 +170,11 @@ class Building(Model):
 
         response = self.request('startProduction', [self.id, slot])
 
-        print("%s started production" % (self))
-
-        self.update_state_from_response(response)
+        try:
+            self.update_state_from_response(response)
+            print("%s started production" % (self))
+        except KeyError:
+            print("%s could not start production! Coins/Supplies insufficient" % (self))
 
         return response
 

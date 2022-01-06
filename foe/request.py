@@ -32,7 +32,6 @@ class Request(object):
     def signature(cls, body):
         """
         """
-
         data = config['login']['user_key'] + config['game']['secret'] + body
 
         return hashlib.md5(data.encode('utf-8')).hexdigest()[0:10]

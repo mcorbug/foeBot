@@ -15,7 +15,6 @@ import argparse
 from foe.monitors.building_monitor import BuildingMonitor
 
 
-
 def main(screen):
 
     parser = argparse.ArgumentParser(description='Building Monitor')
@@ -26,7 +25,5 @@ def main(screen):
 
     monitor = BuildingMonitor(screen, interval=args.interval)
     monitor.run()
-
-
 
 wrapper(main)

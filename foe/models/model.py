@@ -19,6 +19,7 @@ Base = declarative_base()
 
 # http://docs.sqlalchemy.org/en/latest/orm/versioning.html
 
+
 def uuid4_hex():
     """
     Return the hex value of the UUID to get rid of '-'
@@ -27,6 +28,7 @@ def uuid4_hex():
 
     # TODO: Move to utils?
     return uuid.uuid4().hex[:16]
+
 
 class Model(Base):
     """

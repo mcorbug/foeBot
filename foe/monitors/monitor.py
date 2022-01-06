@@ -13,8 +13,6 @@ from curses import wrapper
 # # Proprietary
 from foe.db import session
 
-
-
 class Monitor(object):
     """
     """

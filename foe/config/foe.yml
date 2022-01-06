@@ -4,25 +4,26 @@
 # The version, secret and timestamp need to match and might change when the game updates
 game:
     # Update this to match the server you are playing on
-    server: en1
+    server: de11
     # Inside the 'Client-Identification' header
-    version: '1.214'
+    version: '1.219'
     # This can be gotten by following this tutorial: https://github.com/m3talstorm/foe-decryption
-    secret: kY4ny9bVovzqSJ8cQF/v3hm1kqdbXcj5h0sKRI57YOChHCaispJ3XrbBdpc05cIGXSC9lpH4jy1ybI95hlo82w==
+    secret: o8dHl2GcvQOPbndY/fp6crdorRfZPn7OCZM7SRsqUVgbqH8NGwarYhNo1SrAQtX2wVfvciOgTgIWVneTQCsqgA==
     # The timestamp inside of the 'Referer' header: https://foeen.innogamescdn.com/swf/Preloader.swf?<here>/[[DYNAMIC]]/1
     # Not used anymore
     timestamp: 1511779469
 
 login:
     # This is the value https://<server>.forgeofempires.com/game/json?h=<user_key> in each request
-    user_key: '***'
+    user_key: 'zpG9aUbZ-sQWFIBIBN1pjGoh'
     # This is the value of 'sid' inside the cookie of each request
-    sid: '***'
+    sid: 'nArCQoOVyKkKtf7mURR3ZOotUcweNZDeanXbi6VO'
+
 settings:
     # How often the bot should do a full update
     update:
-        min: 300
-        max: 1800
+        min: 299
+        max: 300
     # Who should the bot polish/motivate
     polivate:
         #
@@ -48,7 +49,7 @@ settings:
 
         random: true
 
-        goods: true
+        goods: false
     #
     goods:
         # (WIP) If the bot should try and balance goods through the aution house so the quantities are roughly the same
